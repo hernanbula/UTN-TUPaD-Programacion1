@@ -66,11 +66,14 @@ else:
 # ● Sesgo negativo o a la izquierda: cuando la media es menor que la mediana y, a su vez, la mediana es menor que la moda.
 # ● Sin sesgo: cuando la media, la mediana y la moda son iguales.
 
+# Importamos paquetes y funciones que necesitamos utilizar
 import random
 from statistics import mode, median, mean # moda (mode), mediana (median) y media (mean) 
 
+# Generamos lista de 50 números de forma aleatoria
 numeros_aleatorios = [random.randint(1, 100) for i in range(50)]
 
+# Calculamos moda, mediana y media de lista de numeros_aleatorios
 moda = mode(numeros_aleatorios)
 mediana = median(numeros_aleatorios)
 media = mean(numeros_aleatorios)
@@ -106,7 +109,12 @@ if ultima_letra == "a" or ultima_letra == "e" or ultima_letra == "i" or ultima_l
 	print(frase,"!")
 else:
 	print(frase)
-     
+
+# Solución más sintética:
+if frase[-1] in "AEIOUaeiou":
+  print(frase,"!")
+else:
+  print(frase)
 
 # 8) Escribir un programa que solicite al usuario que ingrese su nombre y el número 1, 2 o 3 dependiendo de la opción que desee:
     # 1. Si quiere su nombre en mayúsculas. Por ejemplo: PEDRO.
@@ -134,13 +142,13 @@ else:
     print("Ingreso un número invalido. Debe ingresar opción 1, 2 o 3.")
 
 
-9) Escribir un programa que pida al usuario la magnitud de un terremoto, clasifique la magnitud en una de las siguientes categorías según la escala de Richter e imprima el resultado por pantalla:
-● Menor que 3: "Muy leve" (imperceptible).
-● Mayor o igual que 3 y menor que 4: "Leve" (ligeramente perceptible).
-● Mayor o igual que 4 y menor que 5: "Moderado" (sentido por personas, pero generalmente no causa daños).
-● Mayor o igual que 5 y menor que 6: "Fuerte" (puede causar daños en estructuras débiles).
-● Mayor o igual que 6 y menor que 7: "Muy Fuerte" (puede causar daños significativos).
-● Mayor o igual que 7: "Extremo" (puede causar graves daños a gran escala).
+# 9) Escribir un programa que pida al usuario la magnitud de un terremoto, clasifique la magnitud en una de las siguientes categorías según la escala de Richter e imprima el resultado por pantalla:
+# ● Menor que 3: "Muy leve" (imperceptible).
+# ● Mayor o igual que 3 y menor que 4: "Leve" (ligeramente perceptible).
+# ● Mayor o igual que 4 y menor que 5: "Moderado" (sentido por personas, pero generalmente no causa daños).
+# ● Mayor o igual que 5 y menor que 6: "Fuerte" (puede causar daños en estructuras débiles).
+# ● Mayor o igual que 6 y menor que 7: "Muy Fuerte" (puede causar daños significativos).
+# ● Mayor o igual que 7: "Extremo" (puede causar graves daños a gran escala).
 
 magnitud_Richter = float(input("Ingrese la magnitud del terremoto: "))
 
@@ -173,7 +181,7 @@ dia = int(input("Ingrese el número de dia del mes actual (1 a 31): "))
     # 21 de septiembre hasta el 20 de diciembre (incluidos)
     # 21 de diciembre hasta el 20 de marzo (incluidos)
 
-if ((mes == 3 and dia >= 21) or mes == 4 or mes == 5 or (mes == 6 and dia <= 20)):
+if (mes == 3 and dia >= 21) or mes == 4 or mes == 5 or (mes == 6 and dia <= 20):
     if hemisferio == "N":
         print("Usted se encuentra en Primavera.")
     else:
