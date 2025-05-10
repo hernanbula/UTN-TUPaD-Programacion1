@@ -376,5 +376,3 @@ for num1 in secuencia1:
                 print(f"{num1} y {num2} son pares. Por lo tanto la bandera se mantiene igual: {bandera}")
             else:
                 print(f"{num1} y {num2} son impares. Por lo tanto la bandera se mantiene igual: {bandera}")
-
-    
