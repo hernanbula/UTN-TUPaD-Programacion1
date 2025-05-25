@@ -70,9 +70,8 @@ for i in range(base):
 #  Definición de funciones
   
 def binario_recursivo(n):
-    resultado = ""
     if n == 0:
-        return resultado
+        return ""
     else:     
        return binario_recursivo(n // 2) + str(n % 2)
     
