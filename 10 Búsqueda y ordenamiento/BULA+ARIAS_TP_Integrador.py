@@ -67,6 +67,19 @@ def leer_numero_validado(mensaje, min = float("-Inf"), max = float("Inf")):
     return n
 
 
+# Función para solicitar al usuario la opción de menu entre 1, 2 o 3
+def leer_opcion_menu():
+    opcion = None
+    valida = False
+    while not valida:
+        opcion = input("Seleccione opción (1/2/3): ")
+        if opcion in {'1', '2', '3'}:
+            valida = True
+        else:
+            print("ERROR: Debe ser 1, 2 o 3")
+    return int(opcion)
+
+
 # Función para imprimir la lista anidada en formato tabla. Para armar el formato tabla se solicitó asesoramiento de IA Deepseek
 def imprimir_lista(lista): 
         print("\n\n")
@@ -141,27 +154,44 @@ def buscar_articulo():
 
         case _:
             pass
-    
+
 
 # Función para ordenar los artículos de la lista, solicitando al usuario por cual criterio: id, nombre o precio
 def ordenar_lista():
     print("\nIngrese la opción que necesite \n 1: para ordenar por el ID del producto \n 2: para ordenar alfabéticamente por nombre del producto \n 3: para ordenar por precio.\n")
-    opcion = leer_numero_validado("Ingrese el número elegido",1,3) # falta mejorar la funcion para validar dato (upper, solo letra, etc.)
-
-    match opcion:
+    indice = leer_opcion_menu() # Lee la opción validada entre 1,2 o 3)
+    orden = bool(input("Si quiere ordenar de Mayor a menor, ingrese 1. Si quiere ordenar de menor a Mayor, ingrese 0: "))
+    match indice:
         case 1:
-            id_prod = leer_numero_validado("\nIngrese ID del producto", 1, (len(lista_precios)))
-            print(f"Falta establecer el metodo de ordenamiento por {id_prod}")
+            ordenar_selection_sort(lista_precios,indice-1,orden)
         case 2:
-            prod = solicitar_dato("\nIngrese nombre del producto") # falta mejorar la funcion para validar dato (upper, solo letra, etc.)
-            print(f"Falta establecer el metodo de ordenamiento por {prod}")
-            pass
+            ordenar_selection_sort(lista_precios,indice-1,orden)
         case 3:
-            precio = leer_float_validado("\nIngrese precio del producto", 0)
-            print(f"Falta establecer el metodo de ordenamiento por {precio}")
-            pass
+            ordenar_selection_sort(lista_precios,indice-1,orden)
         case _:
             pass
+
+# Función con algoritmo de ordenamiento usando el método Selection Sort adaptado a una lista (de productos) de listas. Para desarrollarlo trabajamos con IA Deepseek.
+ 
+def ordenar_selection_sort(lista, indice_elemento, orden): # orden: Si True (mayor a menor), si False (menor a mayor). Default: True
+
+    n = len(lista)
+    for i in range(n):
+        # Inicializamos la posición del elemento extremo (mínimo o máximo)
+        extremo = i
+        for j in range(i+1, n):
+            # Comparamos según el orden deseado
+            if orden:  # Orden descendente (mayor a menor)
+                if lista[j][indice_elemento] > lista[extremo][indice_elemento]:
+                    extremo = j
+            else:  # Orden ascendente (menor a mayor)
+                if lista[j][indice_elemento] < lista[extremo][indice_elemento]:
+                    extremo = j
+        
+        # Intercambiamos los elementos
+        lista[i], lista[extremo] = lista[extremo], lista[i]
+    
+    imprimir_lista(lista)
 
 
 # Función para ver el menu
@@ -169,7 +199,7 @@ def menu():
     menu = input("\n¿Quiere ingresar al menu de opciones? (S/N): ")
     if menu.upper() == "S":
         print(f"\n{("-"*65)} \n{("-"*65)} \n\n Ingrese la opción de la acción que necesite realizar: \n\n A: imprimir lista de precios \n B: agregar artículo \n C: eliminar artículo \n D: modificar artículo \n E: buscar un artículo \n F: ordenar lista por elemento \n\n IMPORTANTE: Si ingresa cualquier otra tecla y enter, sale de la aplicación.\n")
-        opcion = solicitar_dato("opcion") # falta mejorar la funcion para validar dato (upper, solo letra, etc.)
+        opcion = solicitar_dato("opcion")
         return opcion.upper()
 
 
