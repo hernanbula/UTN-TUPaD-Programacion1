@@ -193,7 +193,6 @@ def manipular_lista(opcion):
             modificar_articulo()
             manipular_lista(menu())
         case "E": # Busca un artículo
-            # Buscar y elegir el mejor método de búsqueda para lista de listas
             buscar_articulo()
             manipular_lista(menu())
         case "F": # Ordena lista por elemento: id_prod, articulo, precio
@@ -227,6 +226,3 @@ lista_precios = [
 ]
 
 manipular_lista(menu())
-
-
-
