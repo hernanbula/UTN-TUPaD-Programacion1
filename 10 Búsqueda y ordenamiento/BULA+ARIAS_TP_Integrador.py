@@ -67,7 +67,7 @@ def leer_numero_validado(mensaje, min = float("-Inf"), max = float("Inf")):
     return n
 
 
-# Función para imprimir la lista anidada en formato tabla. Para esto se solicitó asesoramiento de IA Deepseek
+# Función para imprimir la lista anidada en formato tabla. Para armar el formato tabla se solicitó asesoramiento de IA Deepseek
 def imprimir_lista(lista): 
         print("\n\n")
         print("-"*65)
@@ -108,7 +108,7 @@ def modificar_articulo():
     precio = leer_float_validado("\nIngrese el precio nuevo del producto", min = 0, max = float("Inf"))
     lista_precios[id_prod-1][1] = articulo
     lista_precios[id_prod-1][2] = precio
-    imprimir_producto(id_prod)
+    imprimir_producto(lista_precios[id_prod-1])
 
 
 # Función para buscar un artículo de la lista, solicitando el dato al usuario para la búsqueda (id, nombre o precio)
