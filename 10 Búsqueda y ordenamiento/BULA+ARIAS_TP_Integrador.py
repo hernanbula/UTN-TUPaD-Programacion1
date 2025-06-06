@@ -122,12 +122,23 @@ def buscar_articulo():
             imprimir_producto(lista_precios[id_prod-1])
         case 2:
             prod = solicitar_dato("\nIngrese nombre del producto") # falta mejorar la funcion para validar dato (upper, solo letra, etc.)
-            print(f"Falta establecer el metodo de busqueda por {prod}")
-            pass
+            encontrado = False # Bandera para saber si encontra el producto o no
+            for i in range(0, len(lista_precios)):
+                if prod == lista_precios[i][1]:
+                    imprimir_producto(lista_precios[i])
+                    encontrado = True
+            if not encontrado:            
+                print(f"No exite un producto con ese nombre {prod}")
         case 3:
             precio = leer_float_validado("\nIngrese precio del producto", 0)
-            print(f"Falta establecer el metodo de busqueda por {precio}")
-            pass
+            encontrado = False # Bandera para saber si encontra el producto o no
+            for i in range(0, len(lista_precios)):
+                if precio == lista_precios[i][2]:
+                    imprimir_producto(lista_precios[i])
+                    encontrado = True
+            if not encontrado:
+                print(f"No exite un producto con ese precio {precio}")
+
         case _:
             pass
     
@@ -211,7 +222,7 @@ lista_precios = [
     [12, "Jabón líquido Ala - 750 ml", 6920.30],
     [13, "Papel higiénico Elite - 4 rollos", 4120.00],
     [14, "Café La Morenita - 500 grs", 9150.00],
-    [15, "Galletas Oreo - 117 grs", 1380.90],
+    [15, "Galletas Oreo - 117 grs", 1500.00],
     [16, "Chocolate Águila - 100 grs", 5010.00]
 ]
 
