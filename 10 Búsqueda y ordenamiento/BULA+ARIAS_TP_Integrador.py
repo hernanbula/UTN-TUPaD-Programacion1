@@ -123,7 +123,7 @@ def buscar_articulo():
         case 2:
             prod = solicitar_dato("\nIngrese nombre del producto") # falta mejorar la funcion para validar dato (upper, solo letra, etc.)
             encontrado = False # Bandera para saber si encontra el producto o no
-            for i in range(0, len(lista_precios)):
+            for i in range(len(lista_precios)):
                 if prod == lista_precios[i][1]:
                     imprimir_producto(lista_precios[i])
                     encontrado = True
@@ -132,7 +132,7 @@ def buscar_articulo():
         case 3:
             precio = leer_float_validado("\nIngrese precio del producto", 0)
             encontrado = False # Bandera para saber si encontra el producto o no
-            for i in range(0, len(lista_precios)):
+            for i in range(len(lista_precios)):
                 if precio == lista_precios[i][2]:
                     imprimir_producto(lista_precios[i])
                     encontrado = True
@@ -165,7 +165,7 @@ def ordenar_lista():
 
 
 # Función para ver el menu
-def eleccion_opcion():  
+def menu():  
     menu = input("\n¿Quiere ingresar al menu de opciones? (S/N): ")
     if menu.upper() == "S":
         print(f"\n{("-"*65)} \n{("-"*65)} \n\n Ingrese la opción de la acción que necesite realizar: \n\n A: imprimir lista de precios \n B: agregar artículo \n C: eliminar artículo \n D: modificar artículo \n E: buscar un artículo \n F: ordenar lista por elemento \n\n IMPORTANTE: Si ingresa cualquier otra tecla y enter, sale de la aplicación.\n")
@@ -179,27 +179,27 @@ def manipular_lista(opcion):
     match opcion: # Switch para que el usuario elija la opción:
         case "A": # Imprime lista de precios
             imprimir_lista(lista_precios)
-            manipular_lista(eleccion_opcion())
+            manipular_lista(menu())
         case "B": # Agrega artículo
             agregar_articulo()
             imprimir_lista(lista_precios)
-            manipular_lista(eleccion_opcion())
+            manipular_lista(menu())
         case "C": # Elimina artículo
             imprimir_lista(lista_precios)
             eliminar_articulo()
-            manipular_lista(eleccion_opcion())
+            manipular_lista(menu())
         case "D": # Modifica artículo existente
             imprimir_lista(lista_precios)
             modificar_articulo()
-            manipular_lista(eleccion_opcion())
+            manipular_lista(menu())
         case "E": # Busca un artículo
             # Buscar y elegir el mejor método de búsqueda para lista de listas
             buscar_articulo()
-            manipular_lista(eleccion_opcion())
+            manipular_lista(menu())
         case "F": # Ordena lista por elemento: id_prod, articulo, precio
             # Buscar y elegir el mejor método de ordenamiento para lista de listas
             ordenar_lista()
-            manipular_lista(eleccion_opcion())
+            manipular_lista(menu())
         case _:
             print("Saliste de la aplicación.")
 
@@ -226,7 +226,7 @@ lista_precios = [
     [16, "Chocolate Águila - 100 grs", 5010.00]
 ]
 
-manipular_lista(eleccion_opcion())
+manipular_lista(menu())
 
 
 
