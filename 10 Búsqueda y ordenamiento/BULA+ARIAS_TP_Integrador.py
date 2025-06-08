@@ -40,8 +40,9 @@ Partes del algoritmo a desarrollar
     -Elegir un método de ordenamiento
 '''
 
-# ------------------------
-#  Definición de funciones
+# -------------------------
+#  DEFINICIÓN DE FUNCIONES
+# -------------------------
 
 
 # Función para solicitar al usuario un dato, indicando el mensaje
@@ -234,11 +235,11 @@ def manipular_lista(opcion):
             print("Saliste de la aplicación.")
 
     
-# ------------------------
-#  Main
-# ---------------------------
-#  LISTA INICIAL Y EJECUCIÓN
-# ---------------------------
+# -------------------------
+#  MAIN
+# -------------------------
+
+#  Lista inicial y ejecución
 
 lista_precios = [
     [1, "Aceite Natura - 900 cc", 2090.50],
