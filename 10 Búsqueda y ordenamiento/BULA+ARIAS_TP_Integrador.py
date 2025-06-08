@@ -1,14 +1,16 @@
 # TECNICATURA UNIVERSITARIA EN PROGRAMACIÓN A DISTANCIA
 
 # Programación 1
-# Profesor: Prof. Cinthia Rigoni
+
+# Profesor Coordinador: Alberto Cortez
+# Profesora comisión 1: Prof. Cinthia Rigoni
 # Tutor: Prof. Martín A. García
 
 # Trabajo Práctico Integrador: Búsqueda y Ordenamiento
 
 # Estudiantes: 
-# Hernán E. Bula
-# Rodrigo Arias
+# Hernán E. Bula - hernanbula@gmail.com 
+# Rodrigo Arias - roarias299@gmail.com 
 
 
 # Actividades
@@ -18,7 +20,7 @@ Objetivo: Aplicar y analizar los algoritmos fundamentales de búsqueda y ordenam
 en el contexto de la gestión de datos de una lista de precios de artículos de supermercado.
 
 Problema: Se dispone de una lista de artículos de supermercado. Cada artículo está representado por una 
-estructura de datos de lista que contiene [ID de artículo, nombre de producto, precio]. 
+estructura de datos de lista que contiene ID de artículo, nombre de producto y precio. 
 La información inicial se presenta como una lista de listas en Python (lista anidada), 
 donde cada sub-lista representa un artículo.
 
@@ -31,14 +33,11 @@ Partes del algoritmo a desarrollar
         1: imprimir lista de precios
         2: agregar artículo
         3: eliminar artículo
-        4: buscar un artículo
-        5: ordenar lista por elemento
+        4: buscar un artículo (por ID, nombre o precio)
+        5: ordenar lista por elemento (por ID, nombre o precio) y de manera ascendente o descendente
     -Definir las funciones de cada caso
-    -Elegir el mejor método de búsqueda
-    -Elegir el mejor método de ordenamiento
-    -Comprobar la eficiencia de los algoritmos para ver cual es más eficiente a partir de las conclusiones.
-
-
+    -Elegir un método de búsqueda
+    -Elegir un método de ordenamiento
 '''
 
 # ------------------------
@@ -63,7 +62,7 @@ def leer_float_validado(mensaje, min = float("-Inf"), max = float("Inf")):
 def leer_numero_validado(mensaje, min = float("-Inf"), max = float("Inf")): 
     n = int(input(f"{mensaje}: "))
     while n < min or n > max:
-        n = float(input(f"ERROR. {mensaje}: "))
+        n = int(input(f"ERROR. {mensaje}: "))
     return n
 
 
@@ -109,7 +108,7 @@ def agregar_articulo():
 
 # Función para eliminar un artículo de la lista, solicitando el número de ID al usuario
 def eliminar_articulo(): 
-    id_prod = leer_numero_validado("\nIngrese el ID del artículo para eliminarlo", 1, (len(lista_precios)))
+    id_prod = leer_numero_validado("Ingrese el ID del artículo para eliminarlo", 1, (len(lista_precios)))
     del lista_precios[id_prod-1]
     imprimir_lista(lista_precios)
 
@@ -118,7 +117,7 @@ def eliminar_articulo():
 def modificar_articulo(): 
     id_prod = leer_numero_validado("\nIngrese el ID del artículo a modificar", 1, (len(lista_precios)))
     articulo = input("\nIngrese el nombre nuevo del producto: ")
-    precio = leer_float_validado("\nIngrese el precio nuevo del producto", min = 0, max = float("Inf"))
+    precio = leer_float_validado("\nIngrese el precio nuevo del producto",0)
     lista_precios[id_prod-1][1] = articulo
     lista_precios[id_prod-1][2] = precio
     imprimir_producto(lista_precios[id_prod-1])
@@ -127,30 +126,31 @@ def modificar_articulo():
 # Función para buscar un artículo de la lista, solicitando el dato al usuario para la búsqueda (id, nombre o precio)
 def buscar_articulo(): 
     print("\nIngrese la opción que necesite \n 1: para buscar por ID del producto \n 2: para buscar por nombre del producto \n 3: para buscar por precio.\n")
-    opcion = leer_numero_validado("Ingrese el número elegido",1,3) # falta mejorar la funcion para validar dato (upper, solo letra, etc.)
+    opcion = leer_opcion_menu()
 
     match opcion:
         case 1:
             id_prod = leer_numero_validado("\nIngrese ID del producto", 1, (len(lista_precios)))
             imprimir_producto(lista_precios[id_prod-1])
         case 2:
-            prod = solicitar_dato("\nIngrese nombre del producto") # falta mejorar la funcion para validar dato (upper, solo letra, etc.)
-            encontrado = False # Bandera para saber si encontra el producto o no
+            prod = solicitar_dato("nombre del producto") # falta mejorar la funcion para validar dato (upper, solo letra, etc.)
+            encontrado = False # Bandera para saber si encuentra el producto o no
             for i in range(len(lista_precios)):
                 if prod == lista_precios[i][1]:
                     imprimir_producto(lista_precios[i])
                     encontrado = True
             if not encontrado:            
-                print(f"No exite un producto con ese nombre {prod}")
+                print(f"\n{"-"*65}\nNO existe un producto con el nombre: {prod}\n{"-"*65}")
+                buscar_articulo()
         case 3:
             precio = leer_float_validado("\nIngrese precio del producto", 0)
-            encontrado = False # Bandera para saber si encontra el producto o no
+            encontrado = False # Bandera para saber si encuentra el producto o no
             for i in range(len(lista_precios)):
-                if precio == lista_precios[i][2]:
+                if precio == lista_precios[i][2]: # Falta mejorar para que pueda encontrar coincidencias entre un rango de precios
                     imprimir_producto(lista_precios[i])
                     encontrado = True
             if not encontrado:
-                print(f"No exite un producto con ese precio {precio}")
+                print(f"No exite un producto con el precio: {precio}")
 
         case _:
             pass
@@ -159,8 +159,8 @@ def buscar_articulo():
 # Función para ordenar los artículos de la lista, solicitando al usuario por cual criterio: id, nombre o precio
 def ordenar_lista():
     print("\nIngrese la opción que necesite \n 1: para ordenar por el ID del producto \n 2: para ordenar alfabéticamente por nombre del producto \n 3: para ordenar por precio.\n")
-    indice = leer_opcion_menu() # Lee la opción validada entre 1,2 o 3)
-    orden = bool(input("Si quiere ordenar de Mayor a menor, ingrese 1. Si quiere ordenar de menor a Mayor, ingrese 0: "))
+    indice = leer_opcion_menu() # Lee la opción validada entre 1,2 o 3
+    orden = bool(input(f"\n{"-"*65}\nSi presiona enter, la lista se ordena de menor a Mayor por defecto. \nSi quiere ordenarla de manera descendente, ingrese cualquier tecla: "))
     match indice:
         case 1:
             ordenar_selection_sort(lista_precios,indice-1,orden)
@@ -171,10 +171,10 @@ def ordenar_lista():
         case _:
             pass
 
-# Función con algoritmo de ordenamiento usando el método Selection Sort adaptado a una lista (de productos) de listas. Para desarrollarlo trabajamos con IA Deepseek.
- 
-def ordenar_selection_sort(lista, indice_elemento, orden): # orden: Si True (mayor a menor), si False (menor a mayor). Default: True
 
+# Función con algoritmo de ordenamiento usando el método Selection Sort adaptado a una lista (de productos) de listas. 
+# Para mejorarlo trabajamos con ayuda de IA Deepseek.
+def ordenar_selection_sort(lista, indice_elemento, orden=False): # orden: Si True (mayor a menor), si False (menor a mayor). Default: False
     n = len(lista)
     for i in range(n):
         # Inicializamos la posición del elemento extremo (mínimo o máximo)
@@ -187,14 +187,13 @@ def ordenar_selection_sort(lista, indice_elemento, orden): # orden: Si True (may
             else:  # Orden ascendente (menor a mayor)
                 if lista[j][indice_elemento] < lista[extremo][indice_elemento]:
                     extremo = j
-        
         # Intercambiamos los elementos
         lista[i], lista[extremo] = lista[extremo], lista[i]
     
     imprimir_lista(lista)
 
 
-# Función para ver el menu
+# Función para ver opciones del menú principal:
 def menu():  
     menu = input("\n¿Quiere ingresar al menu de opciones? (S/N): ")
     if menu.upper() == "S":
@@ -203,7 +202,9 @@ def menu():
         return opcion.upper()
 
 
-# Función para manipular el menu de la aplicación y realizar acciones sobre la lista
+# Función principal para ejecutar funciones del menu de la aplicación y realizar acciones sobre la lista según la opción seleccionada
+# Controla el flujo principal de la aplicación.
+
 def manipular_lista(opcion):
 
     match opcion: # Switch para que el usuario elija la opción:
@@ -234,7 +235,10 @@ def manipular_lista(opcion):
 
     
 # ------------------------
-# Main
+#  Main
+# ---------------------------
+#  LISTA INICIAL Y EJECUCIÓN
+# ---------------------------
 
 lista_precios = [
     [1, "Aceite Natura - 900 cc", 2090.50],
