@@ -53,14 +53,15 @@ El desarrollo se centró en aplicar los conceptos aprendidos en el curso de Prog
 - Python 3.6 o superior
 
 ### Ejecución
-1. Clonar el repositorio o descargar el archivo `BULA+ARIAS_TP_Integrador.py`
-2. Ejecutar en terminal:
+1. Ingresar al repositorio https://github.com/hernanbula/UTN-TUPaD-Programacion1/tree/main/TP_Integrador_BULA%2BARIAS 
+2. Descargar el archivo `BULA+ARIAS_TP_Integrador.py`
+3. Ejecutar en terminal:
    
    ```
-   BULA+ARIAS_TP_Integrador.py
+   python3 BULA+ARIAS_TP_Integrador.py
    
    ```
-3. Seguir las instrucciones del menú interactivo
+4. Seguir las instrucciones del menú interactivo
 
 ### Funcionalidades principales
     
