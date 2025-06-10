@@ -126,6 +126,27 @@ def leer_opcion_menu():
     return int(opcion)
 
 
+# Función para solicitar al usuario la opción Si o No
+def leer_si_no(mensaje):
+    """
+    Solicita al usuario una confirmación S/N y devuelve un booleano.
+    
+    Argumentos:
+        mensaje (str): Mensaje a mostrar al usuario
+        
+    Returns:
+        bool: True si el usuario ingresa 'S', False si ingresa 'N'
+    """
+    while True:
+        opcion = input(f"\n{mensaje} (S/N): ").strip().upper()
+        if opcion == "S":
+            return True
+        elif opcion == "N":
+            return False
+        else:
+            print("ERROR: Por favor ingrese solo 'S' o 'N'")
+
+
 # Función para imprimir la lista anidada en formato tabla. Para armar el formato tabla se solicitó asesoramiento de IA Deepseek
 def imprimir_lista(lista):
     '''
@@ -183,7 +204,7 @@ def agregar_articulo():
     Nota:
         Modifica la variable global lista_precios
     '''
-    id_prod = len(lista_precios)+1
+    id_prod = lista_precios[len(lista_precios)-1][0]+1
     articulo = input("\nIngrese el nombre del artículo: ")
     precio = leer_float_validado("\nIngrese el precio del artículo", min = 0, max = float("Inf"))
     lista_precios.append([id_prod, articulo, precio])
@@ -390,11 +411,13 @@ def menu():
     Retorno:
         str: Opción seleccionada en mayúscula o None si no ingresa al menú
     '''
-    menu = input("\n¿Quiere ingresar al menu de opciones? (S/N): ")
-    if menu.upper() == "S":
-        print(f"\n{("-"*65)} \n{("-"*65)} \n\n Ingrese la opción de la acción que necesite realizar: \n\n A: imprimir lista de precios \n B: agregar artículo \n C: eliminar artículo \n D: modificar artículo \n E: buscar un artículo \n F: ordenar lista por elemento \n\n IMPORTANTE: Si ingresa cualquier otra tecla y enter, sale de la aplicación.\n")
+    ingreso = leer_si_no("¿Quiere ingresar al menu de opciones? ")
+    if ingreso:
+        print(f"\n{("-"*65)} \n{("-"*65)} \n\n Ingrese la opción de la acción que necesite realizar: \n\n A: imprimir lista de precios \n B: agregar artículo \n C: eliminar artículo \n D: modificar artículo \n E: buscar un artículo \n F: ordenar lista por elemento \n\n IMPORTANTE: Si ingresa cualquier otra tecla y enter, sale de la aplicación.")
         opcion = solicitar_dato("opcion")
         return opcion.upper()
+    else:
+        return None
 
 
 # Función principal para ejecutar funciones del menu de la aplicación y realizar acciones sobre la lista según la opción seleccionada
@@ -448,7 +471,7 @@ def manipular_lista(opcion):
             ordenar_lista()
             manipular_lista(menu())
         case _:
-            print("Saliste de la aplicación.")
+            print(f"\nSaliste de la aplicación.\n\n{"/"*30}\n")
 
     
 # -------------------------
