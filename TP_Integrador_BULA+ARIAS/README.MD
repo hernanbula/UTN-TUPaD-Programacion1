@@ -18,14 +18,19 @@
 ## 📂 Descripción del Repositorio  
 Este repositorio almacena el Trabajo Práctico Integrador realizado durante la cursada de **Programación 1**.  
 
-📌 **Estructura del repositorio:**  
+### 📌 **Estructura del repositorio:**  
 - El trabajo está organizado en diversos archivos: 
     - README.MD
     - BULA+ARIAS_TP_Integrador.py
+    - BULA+ARIAS_TP_Integrador(con documentación de las funciones).py
     - BULA+ARIAS_TP_Integrador-Programacion1-Búsqueda+ordenamiento-TEXTO.docx
-    - BULA+ARIAS_TP_Integrador-Programacion1-Búsqueda+ordenamiento-VIDEO.docx
+    - BULA+ARIAS_TP_Integrador-Programacion1-Búsqueda+ordenamiento-URL_VIDEO.txt
     - BULA+ARIAS-TP_integrador-Busqueda_Ordenamiento-PRESENTACION.pdf 
 - El archivo de código fuente (`.py`) incluye comentarios y estructura adecuada, para mantener un código limpio, ordenado y bien documentado.  
+
+
+### ▶️ **Enlace al video de presentación:**  
+- https://www.youtube.com/watch?v=BwwRcyvhYY8
 
 ### /////////////////////////////////////////////////////////////////////////
 
