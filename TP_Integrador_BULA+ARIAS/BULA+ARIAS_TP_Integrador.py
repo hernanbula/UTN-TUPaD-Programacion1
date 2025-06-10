@@ -205,7 +205,6 @@ def menu():
 
 # Función principal para ejecutar funciones del menu de la aplicación y realizar acciones sobre la lista según la opción seleccionada
 # Controla el flujo principal de la aplicación.
-
 def manipular_lista(opcion):
 
     match opcion: # Switch para que el usuario elija la opción:
