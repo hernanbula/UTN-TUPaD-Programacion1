@@ -146,37 +146,311 @@
 # print(f"Aprobaron al menos un parcial {len(al_menos_un_parcial)}: {al_menos_un_parcial}")
 
 
-# 8) Armá un diccionario donde las claves sean nombres de productos y los valores su stock.
-# Permití al usuario: 
-# • Consultar el stock de un producto ingresado. 
-# • Agregar unidades al stock si el producto ya existe. 
-# • Agregar un nuevo producto si no existe. 
+# # 8) Armá un diccionario donde las claves sean nombres de productos y los valores su stock.
+# # Permití al usuario: 
+# # • Consultar el stock de un producto ingresado. 
+# # • Agregar unidades al stock si el producto ya existe. 
+# # • Agregar un nuevo producto si no existe. 
+
+# # ----------------------
+# # Funciones
+# # ----------------------
+# #
+# #  Función para solicitar al usuario número entero validado y configurar el mensaje, minimo y máximo
+# def leer_numero_validado(mensaje, min = float("-Inf"), max = float("Inf")): 
+#     n = int(input(f"{mensaje}: "))
+#     while n < min or n > max:
+#         n = int(input(f"ERROR. {mensaje}: "))
+#     return n
+
+# # Función para solicitar al usuario la opción de menu entre 1, 2 o 3
+# def leer_opcion_menu():
+#     opcion = None
+#     valida = False
+#     print(f"\n{("-"*65)}\n Ingrese la opción de la acción que necesite realizar: \n\n 1: imprimir lista de productos y stock \n 2: consultar stock de un producto \n 3: agregar producto y/o stock \n 0: SALIR.\n")
+#     while not valida:
+#         opcion = input("Seleccione opción (1/2/3) o 0 para salir: ")
+#         if opcion in {'1', '2', '3'}:
+#             valida = True
+#         elif opcion == "0":
+#             return "0"
+#         else:
+#             print("ERROR: Debe ser 1, 2 o 3")
+#     return int(opcion)
+
+# # Función para solicitar al usuario la opción Si o No
+# def leer_si_no(mensaje):
+#     while True:
+#         opcion = input(f"\n{mensaje} (S/N): ").strip().upper()
+#         if opcion == "S":
+#             return True
+#         elif opcion == "N":
+#             return False
+#         else:
+#             print("ERROR: Por favor ingrese solo 'S' o 'N'")
+
+# # Función para consultar stock
+# def consulta_stock():
+#     busqueda = None
+#     while busqueda != "0":
+#         busqueda = input("\nIngrese un nombre del producto para consultar su stock. Si quiere salir ingrese 0: ")
+#         if busqueda == "0":
+#             break
+#         elif busqueda in productos_stock:
+#             imprimir_producto(productos_stock, busqueda)
+#         else:
+#             print(f"No existe el producto con el nombre {busqueda}")
+
+# # Función para imprimir la lista anidada en formato tabla
+# def imprimir_lista(lista): 
+#         print("\n")
+#         print("-"*45)
+#         print(f"|  {'PRODUCTO':<30} | {'STOCK':>6}  |")
+#         print("-"*45)
+#         for producto in lista:
+#             print(f"|  {producto:<30} | {lista[producto]:>6}  |")
+#         print("-"*45)
+
+# # Función de imprimir un artículo de una lista en formato tabla. Se adaptó la función imprimir_lista(lista)
+# def imprimir_producto(lista, producto):
+#         print("\n")
+#         print("-"*45)
+#         print(f"|  {'PRODUCTO':<30} | {'STOCK':>6}  |")
+#         print("-"*45)
+#         print(f"|  {producto:<30} | {lista[producto]:>6}  |")
+#         print("-"*45)
+
+# # Función para que el usuario agregue producto y stock a la lista
+# def agregar_producto_stock():
+#     print("\nIngrese producto y/o stock.") 
+#     articulo = input("\nIngrese el nombre del artículo: ")
+#     if articulo in productos_stock:
+#         respuesta = leer_si_no("El artículo que está ingresando ya existe. ¿Quiere modificar su stock?")
+#         if not respuesta:
+#             manipular_lista(productos_stock)
+#     stock = leer_numero_validado("\nIngrese el stock del artículo",0)
+#     productos_stock[articulo] = stock
+
+# def manipular_lista(opcion):
+
+#     match opcion: # Switch para que el usuario elija la opción:
+#         case 1: # Imprime lista de precios
+#             imprimir_lista(productos_stock)
+#             manipular_lista(leer_opcion_menu())
+#         case 2: # Consulta stock
+#             consulta_stock()
+#             manipular_lista(leer_opcion_menu())
+#         case 3: # Agregar producto y/o stock
+#             agregar_producto_stock()
+#             manipular_lista(leer_opcion_menu())
+#         case _:
+#             print(f"\nSaliste de la aplicación.\n\n{"/"*30}\n")
+
+# # ----------------------
+# # Main
+# # ----------------------
+
+# productos_stock = {
+#  'Aceite Natura': 5,
+#  'Tomate Arcor': 2,
+#  'Mayonesa Hellmans': 15,
+#  'Aceite Patito': 7,
+#  'Azúcar Chango': 8,
+#  'Arroz Gallo': 1,
+#  'Fideos Matarazzo': 15,
+#  'Leche Sancor': 8,
+#  'Yogur Ilolay': 15,
+#  'Queso Casancrem': 14,
+#  'Jabón Ala': 9,
+#  'Papel Elite': 11,
+#  'Café Ardu': 5,
+#  'Galletas Oreo': 10,
+#  'Chocolate Águila': 3
+# }
+
+# manipular_lista(leer_opcion_menu())
+
+
+# # 9) Creá una agenda donde las claves sean tuplas de (día, hora) y los valores sean eventos. Ejemplo:
+# # Permití consultar qué actividad hay en cierto día y hora. 
+
+# # ----------------------
+# # Funciones
+# # ----------------------
+
+# from datetime import datetime, time
+
+# # Función para solicitar al usuario la opción Si o No
+# def leer_si_no(mensaje):
+#     while True:
+#         opcion = input(f"\n{mensaje} (S/N): ").strip().upper()
+#         if opcion == "S":
+#             return True
+#         elif opcion == "N":
+#             return False
+#         else:
+#             print("ERROR: Por favor ingrese solo 'S' o 'N'")
+
+# def consultar_agenda(agenda):
+#     dd = 0
+#     mm = 6
+#     aaaa = 2025
+#     hh = -1
+#     while not (dd > 0 and dd < 31):
+#         dd = int(input("Ingrese el día (dd): "))
+#     while not (mm > 0 and mm < 13):
+#         mm = int(input("Ingrese el mes (mm): "))
+#     while not (aaaa > 1999 and aaaa < 2100):
+#         aaaa = int(input("Ingrese el año (aaaa): "))
+#     while not hh > 0 and hh < 24:
+#         hh = int(input("Ingrese el mes (mm): "))
+#     hh = int(input("Ingrese la hora (hh): "))
+#     evento = agenda.get((datetime(2025, mm, dd), time(hh)), "No hay evento")
+#     print(f"Evento: {evento}")
+
+# # ----------------------
+# # Main
+# # ----------------------
+
+# agenda_junio2025 = {
+#     # Domingo 1/6
+#     (datetime(2025, 6, 1), time(9, 0)): "Preparar comida para la reunión",
+#     (datetime(2025, 6, 1), time(11, 0)): "Juntada familiar",
+    
+#     # Lunes 2/6
+#     (datetime(2025, 6, 2), time(9, 0)): "Reunión equipo trabajo",
+#     (datetime(2025, 6, 2), time(13, 0)): "Almuerzo con jefe",
+#     (datetime(2025, 6, 2), time(16, 0)): "Natación",
+    
+#     # Martes 3/6
+#     (datetime(2025, 6, 3), time(10, 0)): "Turno dentista",
+#     (datetime(2025, 6, 3), time(13, 0)): "Clase Facultad: Programación",
+#     (datetime(2025, 6, 3), time(18, 0)): "Estudio grupal",
+    
+#     # Miércoles 4/6
+#     (datetime(2025, 6, 4), time(8, 0)): "Gimnasio",
+#     (datetime(2025, 6, 4), time(13, 0)): "Almuerzo con clientes importantes",
+#     (datetime(2025, 6, 4), time(17, 0)): "Entrega de informe",
+    
+#     # Jueves 5/6
+#     (datetime(2025, 6, 5), time(12, 0)): "Entrega proyecto final (deadline)",
+#     (datetime(2025, 6, 5), time(20, 0)): "Cine: estreno nueva película",
+#     (datetime(2025, 6, 5), time(23, 0)): "Cena post-cine",
+    
+#     # Viernes 6/6
+#     (datetime(2025, 6, 6), time(10, 0)): "Limpieza profunda casa",
+    
+#     # Sábado 7/6
+#     (datetime(2025, 6, 7), time(9, 0)): "Mercado semanal",
+#     (datetime(2025, 6, 7), time(21, 0)): "Cumpleaños de Juan",
+    
+#     # Domingo 8/6
+#     (datetime(2025, 6, 8), time(10, 0)): "Desayuno familiar",
+#     (datetime(2025, 6, 8), time(16, 0)): "Paseo por parque ecológico",
+    
+#     # Lunes 9/6
+#     (datetime(2025, 6, 9), time(11, 0)): "Revisión médica anual",
+#     (datetime(2025, 6, 9), time(19, 0)): "Taller de cocina italiana",
+    
+#     # Martes 10/6
+#     (datetime(2025, 6, 10), time(14, 0)): "Presentación proyecto cliente",
+#     (datetime(2025, 6, 10), time(20, 30)): "Partido de fútbol semanal",
+    
+#     # Miércoles 11/6
+#     (datetime(2025, 6, 11), time(15, 0)): "Webinar: Nuevas tecnologías Python",
+    
+#     # Jueves 12/6
+#     (datetime(2025, 6, 12), time(9, 30)): "Veterinario con Toby",
+#     (datetime(2025, 6, 12), time(18, 0)): "Reunión amigos universidad",
+    
+#     # Viernes 13/6
+#     (datetime(2025, 6, 13), time(15, 0)): "Viaje a Córdoba (salida)",
+#     (datetime(2025, 6, 13), time(19, 0)): "Check-in hotel",
+    
+#     # Sábado 14/6
+#     (datetime(2025, 6, 14), time(8, 0)): "Excursión a las sierras",
+#     (datetime(2025, 6, 14), time(20, 0)): "Cena típica",
+    
+#     # Domingo 15/6
+#     (datetime(2025, 6, 15), time(13, 0)): "Almuerzo familiar (Día del Padre)",
+#     (datetime(2025, 6, 15), time(19, 0)): "Regreso a casa",
+
+#     # Lunes 16/6
+#     (datetime(2025, 6, 16), time(9, 0)): "Reunión planificación semanal",
+#     (datetime(2025, 6, 16), time(18, 0)): "Clase de yoga",
+
+#     # Martes 17/6
+#     (datetime(2025, 6, 17), time(11, 0)): "Charla sobre sustentabilidad",
+#     (datetime(2025, 6, 17), time(20, 0)): "Cena con amigas/os",
+
+#     # Miércoles 18/6
+#     (datetime(2025, 6, 18), time(8, 0)): "Gimnasio",
+#     (datetime(2025, 6, 18), time(16, 0)): "Entrega de presupuesto",
+
+#     # Jueves 19/6
+#     (datetime(2025, 6, 19), time(10, 0)): "Reunión con asesor/a contable",
+#     (datetime(2025, 6, 19), time(19, 0)): "Teatro independiente",
+
+#     # Viernes 20/6 (Feriado: Paso a la Inmortalidad de Belgrano)
+#     (datetime(2025, 6, 20), time(12, 0)): "Almuerzo criollo",
+#     (datetime(2025, 6, 20), time(17, 0)): "Acto conmemorativo",
+
+#     # Sábado 21/6
+#     (datetime(2025, 6, 21), time(9, 30)): "Caminata en la reserva natural",
+#     (datetime(2025, 6, 21), time(22, 0)): "Noche de juegos",
+
+#     # Domingo 22/6
+#     (datetime(2025, 6, 22), time(10, 0)): "Brunch en casa de Lucía",
+#     (datetime(2025, 6, 22), time(18, 0)): "Domingo de películas",
+
+#     # Lunes 23/6
+#     (datetime(2025, 6, 23), time(9, 0)): "Inicio sprint laboral",
+#     (datetime(2025, 6, 23), time(14, 0)): "Entrevista laboral (remota)",
+
+#     # Martes 24/6
+#     (datetime(2025, 6, 24), time(13, 0)): "Almuerzo en nuevo restaurante",
+#     (datetime(2025, 6, 24), time(19, 0)): "Preparar clase del miércoles",
+
+#     # Miércoles 25/6
+#     (datetime(2025, 6, 25), time(9, 0)): "Revisión de tareas estudiantiles",
+#     (datetime(2025, 6, 25), time(17, 0)): "Encuentro con colegas",
+
+#     # Jueves 26/6
+#     (datetime(2025, 6, 26), time(10, 0)): "Control técnico del auto",
+#     (datetime(2025, 6, 26), time(20, 0)): "Noche de jazz en el centro",
+
+#     # Viernes 27/6
+#     (datetime(2025, 6, 27), time(9, 0)): "Coaching profesional",
+#     (datetime(2025, 6, 27), time(21, 0)): "Cena de fin de curso",
+
+#     # Sábado 28/6
+#     (datetime(2025, 6, 28), time(8, 0)): "Viaje a las sierras con amigas/os",
+#     (datetime(2025, 6, 28), time(19, 0)): "Fogón y guitarra",
+
+#     # Domingo 29/6
+#     (datetime(2025, 6, 29), time(11, 0)): "Desayuno de campo",
+#     (datetime(2025, 6, 29), time(17, 0)): "Regreso a casa",
+
+#     # Lunes 30/6
+#     (datetime(2025, 6, 30), time(10, 0)): "Revisión mensual de objetivos",
+#     (datetime(2025, 6, 30), time(18, 0)): "Preparar agenda de julio"
+# }
+
+# bandera = True
+# while bandera:
+#     if leer_si_no("¿Quiere consultar la agenda de junio?"):
+#         consultar_agenda(agenda_junio2025)
+#     else:
+#         bandera = False
+#         print("\nUsted salió de la agenda.")
+
+# 10) Dado un diccionario que mapea nombres de países con sus capitales, construí un nuevo diccionario donde: 
+# • Las capitales sean las claves. 
+# • Los países sean los valores. 
 
 # ----------------------
 # Funciones
 # ----------------------
-#
-#  Función para solicitar al usuario número entero validado y configurar el mensaje, minimo y máximo
-def leer_numero_validado(mensaje, min = float("-Inf"), max = float("Inf")): 
-    n = int(input(f"{mensaje}: "))
-    while n < min or n > max:
-        n = int(input(f"ERROR. {mensaje}: "))
-    return n
-
-# Función para solicitar al usuario la opción de menu entre 1, 2 o 3
-def leer_opcion_menu():
-    opcion = None
-    valida = False
-    print(f"\n{("-"*65)}\n Ingrese la opción de la acción que necesite realizar: \n\n 1: imprimir lista de productos y stock \n 2: consultar stock de un producto \n 3: agregar producto y/o stock \n 0: SALIR.\n")
-    while not valida:
-        opcion = input("Seleccione opción (1/2/3) o 0 para salir: ")
-        if opcion in {'1', '2', '3'}:
-            valida = True
-        elif opcion == "0":
-            return "0"
-        else:
-            print("ERROR: Debe ser 1, 2 o 3")
-    return int(opcion)
 
 # Función para solicitar al usuario la opción Si o No
 def leer_si_no(mensaje):
@@ -189,92 +463,102 @@ def leer_si_no(mensaje):
         else:
             print("ERROR: Por favor ingrese solo 'S' o 'N'")
 
-# Función para consultar stock
-def consulta_stock():
-    busqueda = None
-    while busqueda != "0":
-        busqueda = input("\nIngrese un nombre del producto para consultar su stock. Si quiere salir ingrese 0: ")
-        if busqueda == "0":
-            break
-        elif busqueda in productos_stock:
-            imprimir_producto(productos_stock, busqueda)
+# Función para solicitar al usuario la opción de menu entre 1 o 2
+def leer_opcion():
+    opcion = None
+    valida = False
+    print(f"\n{("-"*65)}\n Ingrese la opción de la acción que necesite realizar: \n\n 1: Consultar capital \n 2: Consultar país\n")
+    while not valida:
+        opcion = input("Seleccione opción (1/2): ")
+        if opcion in {'1', '2'}:
+            valida = True
         else:
-            print(f"No existe el producto con el nombre {busqueda}")
+            print("ERROR: Debe ser 1 o 2")
+    return opcion
 
-# Función para imprimir la lista anidada en formato tabla
-def imprimir_lista(lista): 
-        print("\n")
-        print("-"*45)
-        print(f"|  {'PRODUCTO':<30} | {'STOCK':>6}  |")
-        print("-"*45)
-        for producto in lista:
-            print(f"|  {producto:<30} | {lista[producto]:>6}  |")
-        print("-"*45)
-
-# Función de imprimir un artículo de una lista en formato tabla. Se adaptó la función imprimir_lista(lista)
-def imprimir_producto(lista, producto):
-        print("\n")
-        print("-"*45)
-        print(f"|  {'PRODUCTO':<30} | {'STOCK':>6}  |")
-        print("-"*45)
-        print(f"|  {producto:<30} | {lista[producto]:>6}  |")
-        print("-"*45)
-
-# Función para que el usuario agregue producto y stock a la lista
-def agregar_producto_stock():
-    print("\nIngrese producto y/o stock.") 
-    articulo = input("\nIngrese el nombre del artículo: ")
-    if articulo in productos_stock:
-        respuesta = leer_si_no("El artículo que está ingresando ya existe. ¿Quiere modificar su stock?")
-        if not respuesta:
-            manipular_lista(productos_stock)
-    stock = leer_numero_validado("\nIngrese el stock del artículo",0)
-    productos_stock[articulo] = stock
-
-def manipular_lista(opcion):
-
-    match opcion: # Switch para que el usuario elija la opción:
-        case 1: # Imprime lista de precios
-            imprimir_lista(productos_stock)
-            manipular_lista(leer_opcion_menu())
-        case 2: # Consulta stock
-            consulta_stock()
-            manipular_lista(leer_opcion_menu())
-        case 3: # Agregar producto y/o stock
-            agregar_producto_stock()
-            manipular_lista(leer_opcion_menu())
-        case _:
-            print(f"\nSaliste de la aplicación.\n\n{"/"*30}\n")
+# Función para consultar value de diccionario a partir de su key
+def consulta_diccionario(diccionario, consulta):
+        if consulta in diccionario:
+            print("-"*45)
+            print(f"\n {consulta} pertenece a {diccionario[consulta]}")
+            print("-"*45)
+        else:
+            print("\nNo encontramos su consulta.\nPor favor ingrese otra: ")
+            consulta_diccionario(diccionario)
 
 # ----------------------
 # Main
 # ----------------------
 
-productos_stock = {
- 'Aceite Natura': 5,
- 'Tomate Arcor': 2,
- 'Mayonesa Hellmans': 15,
- 'Aceite Patito': 7,
- 'Azúcar Chango': 8,
- 'Arroz Gallo': 1,
- 'Fideos Matarazzo': 15,
- 'Leche Sancor': 8,
- 'Yogur Ilolay': 15,
- 'Queso Casancrem': 14,
- 'Jabón Ala': 9,
- 'Papel Elite': 11,
- 'Café Ardu': 5,
- 'Galletas Oreo': 10,
- 'Chocolate Águila': 3
+atlas_paises = {
+    "Afganistán": "Kabul",
+    "Alemania": "Berlín",
+    "Arabia Saudita": "Riad",
+    "Argentina": "Buenos Aires",
+    "Australia": "Canberra",
+    "Bélgica": "Bruselas",
+    "Bolivia": "Sucre",
+    "Brasil": "Brasilia",
+    "Canadá": "Ottawa",
+    "Chile": "Santiago",
+    "China": "Pekín",
+    "Colombia": "Bogotá",
+    "Corea del Sur": "Seúl",
+    "Costa Rica": "San José",
+    "Cuba": "La Habana",
+    "Ecuador": "Quito",
+    "Egipto": "El Cairo",
+    "El Salvador": "San Salvador",
+    "España": "Madrid",
+    "Estados Unidos": "Washington D.C.",
+    "Filipinas": "Manila",
+    "Finlandia": "Helsinki",
+    "Francia": "París",
+    "Grecia": "Atenas",
+    "Guatemala": "Ciudad de Guatemala",
+    "Honduras": "Tegucigalpa",
+    "India": "Nueva Delhi",
+    "Indonesia": "Yakarta",
+    "Irak": "Bagdad",
+    "Irán": "Teherán",
+    "Italia": "Roma",
+    "Japón": "Tokio",
+    "Marruecos": "Rabat",
+    "México": "Ciudad de México",
+    "Nicaragua": "Managua",
+    "Noruega": "Oslo",
+    "Países Bajos": "Ámsterdam",
+    "Panamá": "Ciudad de Panamá",
+    "Paraguay": "Asunción",
+    "Perú": "Lima",
+    "Polonia": "Varsovia",
+    "Portugal": "Lisboa",
+    "Reino Unido": "Londres",
+    "República Dominicana": "Santo Domingo",
+    "Rusia": "Moscú",
+    "Suecia": "Estocolmo",
+    "Suiza": "Berna",
+    "Turquía": "Ankara",
+    "Ucrania": "Kiev",
+    "Venezuela": "Caracas"
 }
 
-manipular_lista(leer_opcion_menu())
+atlas_ciudades = {}
 
+for pais, capital in atlas_paises.items():
+    atlas_ciudades[capital] = pais
 
-# 9) Creá una agenda donde las claves sean tuplas de (día, hora) y los valores sean eventos. Ejemplo:
-# Permití consultar qué actividad hay en cierto día y hora. 
+bandera = True
+while bandera:
+    if leer_si_no("¿Quiere consultar el atlas?"):
+        opcion = leer_opcion()
+        if opcion == "1":
+            consulta = input("\nIngrese el país para mostrarle su capital: ")
+            consulta_diccionario(atlas_paises, consulta)
+        elif opcion == "2":
+            consulta = input("\nIngrese la capital para mostrarle el país al que pertenece: ")
+            consulta_diccionario(atlas_ciudades, consulta)
+    else:
+        bandera = False
+        print("\nUsted salió del atlas.")
 
-
-# 10) Dado un diccionario que mapea nombres de países con sus capitales, construí un nuevo diccionario donde: 
-# • Las capitales sean las claves. 
-# • Los países sean los valores. 
