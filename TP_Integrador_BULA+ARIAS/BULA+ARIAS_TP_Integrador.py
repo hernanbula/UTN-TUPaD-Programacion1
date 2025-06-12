@@ -224,29 +224,24 @@ def manipular_lista(opcion):
     match opcion: # Switch para que el usuario elija la opción:
         case "A": # Imprime lista de precios
             imprimir_lista(lista_precios)
-            manipular_lista(menu())
         case "B": # Agrega artículo
             agregar_articulo()
             imprimir_lista(lista_precios)
-            manipular_lista(menu())
         case "C": # Elimina artículo
             imprimir_lista(lista_precios)
             eliminar_articulo()
-            manipular_lista(menu())
         case "D": # Modifica artículo existente
             imprimir_lista(lista_precios)
             modificar_articulo()
-            manipular_lista(menu())
         case "E": # Busca un artículo
             buscar_articulo()
-            manipular_lista(menu())
         case "F": # Ordena lista por elemento: id_prod, articulo, precio
             # Buscar y elegir el mejor método de ordenamiento para lista de listas
             ordenar_lista()
-            manipular_lista(menu())
         case _:
             print(f"\nSaliste de la aplicación.\n\n{"/"*30}\n")
-
+    if opcion != None:
+        manipular_lista(menu())
     
 # -------------------------
 #  MAIN
